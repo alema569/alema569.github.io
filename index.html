@@ -2,219 +2,351 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Palette Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Enhanced Color Palette Generator</title>
     <style>
-        body, html {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.min-h-screen {
-    min-height: 100vh;
-}
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
 
-.bg-gray-50 {
-    background-color: #f9fafb;
-}
+        .title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
 
-.card {
-    background: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-}
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
 
-.card-content {
-    padding: 0;
-}
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
 
-.header {
-    background-color: #0f172a;
-    padding: 16px;
-    color: white;
-}
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
 
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
 
-.hidden-md {
-    display: none;
-}
+        .card-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
 
-.section-primary {
-    background-color: #e2e8f0;
-    text-align: center;
-    padding: 40px 16px;
-}
+        .color-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
 
-.section-primary h1 {
-    font-size: 2.5rem;
-    color: #0f172a;
-}
+        .color-label {
+            width: 6rem;
+            text-transform: capitalize;
+        }
 
-.section-primary p {
-    font-size: 1.2rem;
-}
+        input[type="color"] {
+            width: 4rem;
+            height: 2.5rem;
+        }
 
-.btn-primary, .btn-secondary {
-    padding: 12px 24px;
-    background-color: #3b82f6;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-}
+        input[type="text"] {
+            width: 7rem;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.25rem;
+        }
 
-.section-services {
-    text-align: center;
-    padding: 40px 16px;
-}
+        .preview-section {
+            grid-column: span 2;
+        }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
+        /* Preview Styles */
+        .preview-header {
+            padding: 1rem;
+            color: white;
+        }
 
-.service-card {
-    padding: 16px;
-    border: 1px solid #3b82f6;
-    border-radius: 8px;
-}
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.section-cta {
-    background-color: #3b82f6;
-    text-align: center;
-    color: white;
-    padding: 40px 16px;
-}
+        .nav-links {
+            display: none;
+        }
 
-.footer {
-    background-color: #0f172a;
-    color: white;
-    padding: 20px;
-}
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 1rem;
+            }
+        }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
 
-.social-links a {
-    color: #888;
-    text-decoration: none;
-    margin-right: 10px;
-}
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
 
+        .icon-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .hero-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .features-section {
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .cta-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .footer {
+            padding: 2rem;
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="min-h-screen flex flex-col bg-gray-50">
-        <nav class="sticky top-0 z-10 bg-white shadow-sm p-4">
-            <div class="container flex items-center justify-between">
-                <h1 class="text-xl font-semibold">Color Palette Generator</h1>
-                <div class="flex items-center space-x-4" id="color-pickers">
-                    <!-- Color pickers will be dynamically added here -->
-                </div>
-            </div>
-        </nav>
-
-        <main class="flex-grow container p-4">
-            <div class="card overflow-hidden shadow-xl">
-                <div class="card-content">
-                    <div id="main-content">
-                        <header class="header">
-                            <div class="header-container">
-                                <h2 class="font-bold text-xl">Acme Inc.</h2>
-                                <nav class="hidden-md">
-                                    <a href="#">Home</a>
-                                    <a href="#">Products</a>
-                                    <a href="#">About</a>
-                                    <a href="#">Contact</a>
-                                </nav>
-                                <button class="menu-btn hidden-md">
-                                    ☰
-                                </button>
-                            </div>
-                        </header>
-
-                        <section class="section-primary">
-                            <h1>Innovate. Create. Elevate.</h1>
-                            <p>Empowering businesses with cutting-edge solutions for a digital future.</p>
-                            <button class="btn-primary">Get Started →</button>
-                        </section>
-
-                        <section class="section-services">
-                            <h2>Our Services</h2>
-                            <div class="services-grid">
-                                <div class="service-card">
-                                    <h3>Web Development</h3>
-                                    <p>Crafting responsive and intuitive websites</p>
-                                </div>
-                                <div class="service-card">
-                                    <h3>Mobile Apps</h3>
-                                    <p>Building powerful cross-platform applications</p>
-                                </div>
-                                <div class="service-card">
-                                    <h3>Cloud Solutions</h3>
-                                    <p>Scalable and secure cloud infrastructure</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="section-cta">
-                            <h2>Ready to Transform Your Business?</h2>
-                            <p>Let's collaborate to bring your ideas to life</p>
-                            <button class="btn-secondary">Contact Us →</button>
-                        </section>
-
-                        <footer class="footer">
-                            <div class="footer-grid">
-                                <div>
-                                    <h2>Acme Inc.</h2>
-                                    <p>Innovating for a better tomorrow</p>
-                                </div>
-                                <div>
-                                    <h3>Quick Links</h3>
-                                    <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">Products</a></li>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3>Contact</h3>
-                                    <p>123 Tech Street<br>San Francisco, CA 94107</p>
-                                    <p>contact@acmeinc.com</p>
-                                </div>
-                                <div>
-                                    <h3>Follow Us</h3>
-                                    <div class="social-links">
-                                        <a href="#">T</a>
-                                        <a href="#">L</a>
-                                        <a href="#">G</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </footer>
+    <div class="container">
+        <h1 class="title">Enhanced Color Palette Generator</h1>
+        <div class="grid">
+            <div class="card">
+                <h2 class="card-title">Choose Your Colors</h2>
+                <p class="card-description">Select colors for your palette</p>
+                <div id="colorInputs">
+                    <div class="color-input-group">
+                        <label class="color-label">Primary</label>
+                        <input type="color" id="primaryColor" value="#3b82f6">
+                        <input type="text" id="primaryText" value="#3b82f6">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Secondary</label>
+                        <input type="color" id="secondaryColor" value="#10b981">
+                        <input type="text" id="secondaryText" value="#10b981">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Accent</label>
+                        <input type="color" id="accentColor" value="#f59e0b">
+                        <input type="text" id="accentText" value="#f59e0b">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Background</label>
+                        <input type="color" id="backgroundColor" value="#ffffff">
+                        <input type="text" id="backgroundText" value="#ffffff">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Text</label>
+                        <input type="color" id="textColor" value="#1f2937">
+                        <input type="text" id="textText" value="#1f2937">
                     </div>
                 </div>
             </div>
-        </main>
+
+            <div class="card preview-section">
+                <h2 class="card-title">Live Website Preview</h2>
+                <p class="card-description">See how your colors look on a complete website</p>
+                <div id="preview" style="border-radius: 0.5rem; overflow: hidden;">
+                    <!-- Preview content will be updated by JavaScript -->
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const colors = {
+            primary: "#3b82f6",
+            secondary: "#10b981",
+            accent: "#f59e0b",
+            background: "#ffffff",
+            text: "#1f2937"
+        };
+
+        function updatePreview() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = `
+                <div style="background-color: ${colors.background}; color: ${colors.text};">
+                    <header style="background-color: ${colors.primary};" class="preview-header">
+                        <div class="nav-container">
+                            <h2 style="font-weight: bold; font-size: 1.5rem;">Your Brand</h2>
+                            <nav class="nav-links">
+                                <a href="#">Home</a>
+                                <a href="#">Products</a>
+                                <a href="#">About</a>
+                                <a href="#">Contact</a>
+                            </nav>
+                            <div class="icon-buttons">
+                                <button class="icon-button">🔍</button>
+                                <button class="icon-button">👤</button>
+                                <button class="icon-button">🛒</button>
+                                <button class="icon-button mobile-menu">☰</button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <section class="hero-section" style="background-color: ${colors.secondary};">
+                        <h1 style="font-size: 2.25rem; font-weight: bold; margin-bottom: 1rem; color: ${colors.background};">Welcome to Your Brand</h1>
+                        <p style="margin-bottom: 2rem; color: ${colors.background};">Discover amazing products and services</p>
+                        <button class="button" style="background-color: ${colors.accent}; color: ${colors.background};">Shop Now</button>
+                    </section>
+
+                    <section class="features-section">
+                        <h2 style="text-align: center; font-size: 1.875rem; font-weight: bold; margin-bottom: 2rem;">Our Features</h2>
+                        <div class="features-grid">
+                            ${[1, 2, 3].map(i => `
+                                <div class="card">
+                                    <h3 style="color: ${colors.primary}; font-weight: bold; margin-bottom: 1rem;">Feature ${i}</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <section class="cta-section" style="background-color: ${colors.accent};">
+                        <h2 style="font-size: 1.875rem; font-weight: bold; margin-bottom: 1rem; color: ${colors.background};">Ready to Get Started?</h2>
+                        <p style="margin-bottom: 2rem; color: ${colors.background};">Join thousands of satisfied customers today!</p>
+                        <button class="button" style="background-color: ${colors.primary}; color: ${colors.background};">Sign Up Now</button>
+                    </section>
+
+                    <footer class="footer" style="background-color: ${colors.primary};">
+                        <div class="footer-grid">
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">About Us</h3>
+                                <p>Your Brand is committed to providing the best products and services.</p>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">Quick Links</h3>
+                                <ul style="list-style: none;">
+                                    <li><a href="#" style="color: white; text-decoration: none;">Home</a></li>
+                                    <li><a href="#" style="color: white; text-decoration: none;">Products</a></li>
+                                    <li><a href="#" style="color: white; text-decoration: none;">About</a></li>
+                                    <li><a href="#" style="color: white; text-decoration: none;">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">Contact Us</h3>
+                                <p>123 Main St, Anytown, USA 12345</p>
+                                <p>Phone: (123) 456-7890</p>
+                                <p>Email: info@yourbrand.com</p>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">Follow Us</h3>
+                                <div style="display: flex; gap: 1rem;">
+                                    <a href="#" style="color: white; text-decoration: none;">FB</a>
+                                    <a href="#" style="color: white; text-decoration: none;">TW</a>
+                                    <a href="#" style="color: white; text-decoration: none;">IG</a>
+                                    <a href="#" style="color: white; text-decoration: none;">LI</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            `;
+        }
+
+        // Set up event listeners for all color inputs
+        const colorTypes = ['primary', 'secondary', 'accent', 'background', 'text'];
+        colorTypes.forEach(type => {
+            const colorInput = document.getElementById(`${type}Color`);
+            const textInput = document.getElementById(`${type}Text`);
+
+            colorInput.addEventListener('input', (e) => {
+                colors[type] = e.target.value;
+                textInput.value = e.target.value;
+                updatePreview();
+            });
+
+            textInput.addEventListener('input', (e) => {
+                colors[type] = e.target.value;
+                colorInput.value = e.target.value;
+                updatePreview();
+            });
+        });
+
+        // Initial preview
+        updatePreview();
+    </script>
 </body>
 </html>
