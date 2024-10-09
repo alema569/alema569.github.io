@@ -1,14 +1,352 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <h1>Yo</h1>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Color Palette Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .color-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-label {
+            width: 6rem;
+            text-transform: capitalize;
+        }
+
+        input[type="color"] {
+            width: 4rem;
+            height: 2.5rem;
+        }
+
+        input[type="text"] {
+            width: 7rem;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.25rem;
+        }
+
+        .preview-section {
+            grid-column: span 2;
+        }
+
+        /* Preview Styles */
+        .preview-header {
+            padding: 1rem;
+            color: white;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 1rem;
+            }
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .icon-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .hero-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .features-section {
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .cta-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .footer {
+            padding: 2rem;
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Enhanced Color Palette Generator</h1>
+        <div class="grid">
+            <div class="card">
+                <h2 class="card-title">Choose Your Colors</h2>
+                <p class="card-description">Select colors for your palette</p>
+                <div id="colorInputs">
+                    <div class="color-input-group">
+                        <label class="color-label">Primary</label>
+                        <input type="color" id="primaryColor" value="#3b82f6">
+                        <input type="text" id="primaryText" value="#3b82f6">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Secondary</label>
+                        <input type="color" id="secondaryColor" value="#10b981">
+                        <input type="text" id="secondaryText" value="#10b981">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Accent</label>
+                        <input type="color" id="accentColor" value="#f59e0b">
+                        <input type="text" id="accentText" value="#f59e0b">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Background</label>
+                        <input type="color" id="backgroundColor" value="#ffffff">
+                        <input type="text" id="backgroundText" value="#ffffff">
+                    </div>
+                    <div class="color-input-group">
+                        <label class="color-label">Text</label>
+                        <input type="color" id="textColor" value="#1f2937">
+                        <input type="text" id="textText" value="#1f2937">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card preview-section">
+                <h2 class="card-title">Live Website Preview</h2>
+                <p class="card-description">See how your colors look on a complete website</p>
+                <div id="preview" style="border-radius: 0.5rem; overflow: hidden;">
+                    <!-- Preview content will be updated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const colors = {
+            primary: "#3b82f6",
+            secondary: "#10b981",
+            accent: "#f59e0b",
+            background: "#ffffff",
+            text: "#1f2937"
+        };
+
+        function updatePreview() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = `
+                <div style="background-color: ${colors.background}; color: ${colors.text};">
+                    <header style="background-color: ${colors.primary};" class="preview-header">
+                        <div class="nav-container">
+                            <h2 style="font-weight: bold; font-size: 1.5rem;">Your Brand</h2>
+                            <nav class="nav-links">
+                                <a href="#">Home</a>
+                                <a href="#">Products</a>
+                                <a href="#">About</a>
+                                <a href="#">Contact</a>
+                            </nav>
+                            <div class="icon-buttons">
+                                <button class="icon-button">🔍</button>
+                                <button class="icon-button">👤</button>
+                                <button class="icon-button">🛒</button>
+                                <button class="icon-button mobile-menu">☰</button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <section class="hero-section" style="background-color: ${colors.secondary};">
+                        <h1 style="font-size: 2.25rem; font-weight: bold; margin-bottom: 1rem; color: ${colors.background};">Welcome to Your Brand</h1>
+                        <p style="margin-bottom: 2rem; color: ${colors.background};">Discover amazing products and services</p>
+                        <button class="button" style="background-color: ${colors.accent}; color: ${colors.background};">Shop Now</button>
+                    </section>
+
+                    <section class="features-section">
+                        <h2 style="text-align: center; font-size: 1.875rem; font-weight: bold; margin-bottom: 2rem;">Our Features</h2>
+                        <div class="features-grid">
+                            ${[1, 2, 3].map(i => `
+                                <div class="card">
+                                    <h3 style="color: ${colors.primary}; font-weight: bold; margin-bottom: 1rem;">Feature ${i}</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <section class="cta-section" style="background-color: ${colors.accent};">
+                        <h2 style="font-size: 1.875rem; font-weight: bold; margin-bottom: 1rem; color: ${colors.background};">Ready to Get Started?</h2>
+                        <p style="margin-bottom: 2rem; color: ${colors.background};">Join thousands of satisfied customers today!</p>
+                        <button class="button" style="background-color: ${colors.primary}; color: ${colors.background};">Sign Up Now</button>
+                    </section>
+
+                    <footer class="footer" style="background-color: ${colors.primary};">
+                        <div class="footer-grid">
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">About Us</h3>
+                                <p>Your Brand is committed to providing the best products and services.</p>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">Quick Links</h3>
+                                <ul style="list-style: none;">
+                                    <li><a href="#" style="color: white; text-decoration: none;">Home</a></li>
+                                    <li><a href="#" style="color: white; text-decoration: none;">Products</a></li>
+                                    <li><a href="#" style="color: white; text-decoration: none;">About</a></li>
+                                    <li><a href="#" style="color: white; text-decoration: none;">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">Contact Us</h3>
+                                <p>123 Main St, Anytown, USA 12345</p>
+                                <p>Phone: (123) 456-7890</p>
+                                <p>Email: info@yourbrand.com</p>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin-bottom: 1rem;">Follow Us</h3>
+                                <div style="display: flex; gap: 1rem;">
+                                    <a href="#" style="color: white; text-decoration: none;">FB</a>
+                                    <a href="#" style="color: white; text-decoration: none;">TW</a>
+                                    <a href="#" style="color: white; text-decoration: none;">IG</a>
+                                    <a href="#" style="color: white; text-decoration: none;">LI</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            `;
+        }
+
+        // Set up event listeners for all color inputs
+        const colorTypes = ['primary', 'secondary', 'accent', 'background', 'text'];
+        colorTypes.forEach(type => {
+            const colorInput = document.getElementById(`${type}Color`);
+            const textInput = document.getElementById(`${type}Text`);
+
+            colorInput.addEventListener('input', (e) => {
+                colors[type] = e.target.value;
+                textInput.value = e.target.value;
+                updatePreview();
+            });
+
+            textInput.addEventListener('input', (e) => {
+                colors[type] = e.target.value;
+                colorInput.value = e.target.value;
+                updatePreview();
+            });
+        });
+
+        // Initial preview
+        updatePreview();
+    </script>
+</body>
 </html>
