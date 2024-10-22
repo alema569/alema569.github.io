@@ -212,7 +212,7 @@ function checkTransparency(image) {
                     if (hearts <= 0) {
                         loadedImages = -1;
                         cancelAnimationFrame(animate);
-                        backgroundAudio.stop();
+                        backgroundAudio.pause();
                         alert("Je bent af!\nStatistieken:\n========\nScore: " + parseInt(playerScore) +
                             "\nAuto's gepasseerd: " + carsPassed);
                     }
