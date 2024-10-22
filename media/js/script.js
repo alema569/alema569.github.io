@@ -145,6 +145,7 @@ function checkTransparency(image) {
         }
 
         function startGame() {
+            console.log('Game started');
             backgroundAudio = new Audio('media/sounds/background.mp3');
             backgroundAudio.play();
             selectCarColor();
